@@ -1,0 +1,147 @@
+syntax = "proto3";
+
+option go_package = "/authentication";
+
+service AuthenticationService {
+  // Метод для регистрации нового пользователя
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse);
+
+  // Метод для входа пользователя в систему
+  rpc LoginUser(LoginUserRequest) returns (LoginUserResponse);
+
+  // Метод для смены пароля пользователя
+  rpc ChangePassword(ChangePasswordRequest) returns (ChangePasswordResponse);
+
+  // Метод для сброса пароля пользователя
+  rpc ResetPassword(ResetPasswordRequest) returns (ResetPasswordResponse);
+
+  // Метод для создания сессии пользователя
+  rpc CreateSession(CreateSessionRequest) returns (CreateSessionResponse);
+
+  // Метод для завершения сессии пользователя
+  rpc TerminateSession(TerminateSessionRequest) returns (TerminateSessionResponse);
+
+  // Метод для проверки прав доступа пользователя
+  rpc CheckAuthorization(CheckAuthorizationRequest) returns (CheckAuthorizationResponse);
+
+  // Метод для добавления роли пользователю
+  rpc AddUserRole(AddUserRoleRequest) returns (AddUserRoleResponse);
+
+  // Метод для удаления роли пользователя
+  rpc RemoveUserRole(RemoveUserRoleRequest) returns (RemoveUserRoleResponse);
+
+  // Метод для включения двухфакторной аутентификации
+  rpc EnableTwoFactorAuth(EnableTwoFactorAuthRequest) returns (EnableTwoFactorAuthResponse);
+
+  // Метод для проверки двухфакторной аутентификации
+  rpc VerifyTwoFactorAuth(VerifyTwoFactorAuthRequest) returns (VerifyTwoFactorAuthResponse);
+}
+
+message RegisterUserRequest {
+  string username = 1;
+  string password = 2;
+  string email = 3;
+  string full_name = 4;
+}
+
+message RegisterUserResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+
+message LoginUserRequest {
+  string username = 1;
+  string password = 2;
+}
+
+message LoginUserResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message ChangePasswordRequest {
+  string username = 1;
+  string current_password = 2;
+  string new_password = 3;
+}
+
+message ChangePasswordResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message ResetPasswordRequest {
+  string username = 1;
+}
+
+message ResetPasswordResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message CreateSessionRequest {
+  string username = 1;
+}
+
+message CreateSessionResponse {
+  bool   success = 1;
+  string session_token = 2;
+}
+
+message TerminateSessionRequest {
+  string session_token = 1;
+}
+
+message TerminateSessionResponse {
+  bool   success = 1;
+  string message = 2;
+}
+
+message CheckAuthorizationRequest {
+  string token = 1;
+}
+
+message CheckAuthorizationResponse {
+  bool   authorized = 1;
+  string message = 2;
+}
+
+message AddUserRoleRequest {
+  string username = 1;
+  string role = 2;
+}
+
+message AddUserRoleResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message RemoveUserRoleRequest {
+  string username = 1;
+  string role = 2;
+}
+
+message RemoveUserRoleResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message EnableTwoFactorAuthRequest {
+  string username = 1;
+}
+
+message EnableTwoFactorAuthResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+message VerifyTwoFactorAuthRequest {
+  string username = 1;
+  string code = 2;
+}
+
+message VerifyTwoFactorAuthResponse {
+  bool success = 1;
+  string message = 2;
+}
