@@ -1,8 +1,8 @@
 package registeruser
 
 import (
-	pb "auth/internal/authentication"
 	"auth/internal/entities"
+	pb "auth/internal/authentication"
 	storages "auth/internal/storages/postgres"
 	"context"
 	"errors"
@@ -10,7 +10,10 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
-func RegisterUser(ctx context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
+type RpcRegist struct {
+}
+
+func (RpcRegist) RegisterUser(ctx context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
 	ctx.Deadline()
 	userRepository := NewRepository(storages.DB)
 	usernameExist, err := userRepository.isUserExists(req.Username)

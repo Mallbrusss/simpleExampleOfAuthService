@@ -19,17 +19,10 @@ import (
 const _ = grpc.SupportPackageIsVersion7
 
 const (
-	AuthenticationService_RegisterUser_FullMethodName        = "/AuthenticationService/RegisterUser"
-	AuthenticationService_LoginUser_FullMethodName           = "/AuthenticationService/LoginUser"
-	AuthenticationService_ChangePassword_FullMethodName      = "/AuthenticationService/ChangePassword"
-	AuthenticationService_ResetPassword_FullMethodName       = "/AuthenticationService/ResetPassword"
-	AuthenticationService_CreateSession_FullMethodName       = "/AuthenticationService/CreateSession"
-	AuthenticationService_TerminateSession_FullMethodName    = "/AuthenticationService/TerminateSession"
-	AuthenticationService_CheckAuthorization_FullMethodName  = "/AuthenticationService/CheckAuthorization"
-	AuthenticationService_AddUserRole_FullMethodName         = "/AuthenticationService/AddUserRole"
-	AuthenticationService_RemoveUserRole_FullMethodName      = "/AuthenticationService/RemoveUserRole"
-	AuthenticationService_EnableTwoFactorAuth_FullMethodName = "/AuthenticationService/EnableTwoFactorAuth"
-	AuthenticationService_VerifyTwoFactorAuth_FullMethodName = "/AuthenticationService/VerifyTwoFactorAuth"
+	AuthenticationService_RegisterUser_FullMethodName   = "/AuthenticationService/RegisterUser"
+	AuthenticationService_LoginUser_FullMethodName      = "/AuthenticationService/LoginUser"
+	AuthenticationService_ChangePassword_FullMethodName = "/AuthenticationService/ChangePassword"
+	AuthenticationService_ResetPassword_FullMethodName  = "/AuthenticationService/ResetPassword"
 )
 
 // AuthenticationServiceClient is the client API for AuthenticationService service.
@@ -44,20 +37,6 @@ type AuthenticationServiceClient interface {
 	ChangePassword(ctx context.Context, in *ChangePasswordRequest, opts ...grpc.CallOption) (*ChangePasswordResponse, error)
 	// Метод для сброса пароля пользователя
 	ResetPassword(ctx context.Context, in *ResetPasswordRequest, opts ...grpc.CallOption) (*ResetPasswordResponse, error)
-	// Метод для создания сессии пользователя
-	CreateSession(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error)
-	// Метод для завершения сессии пользователя
-	TerminateSession(ctx context.Context, in *TerminateSessionRequest, opts ...grpc.CallOption) (*TerminateSessionResponse, error)
-	// Метод для проверки прав доступа пользователя
-	CheckAuthorization(ctx context.Context, in *CheckAuthorizationRequest, opts ...grpc.CallOption) (*CheckAuthorizationResponse, error)
-	// Метод для добавления роли пользователю
-	AddUserRole(ctx context.Context, in *AddUserRoleRequest, opts ...grpc.CallOption) (*AddUserRoleResponse, error)
-	// Метод для удаления роли пользователя
-	RemoveUserRole(ctx context.Context, in *RemoveUserRoleRequest, opts ...grpc.CallOption) (*RemoveUserRoleResponse, error)
-	// Метод для включения двухфакторной аутентификации
-	EnableTwoFactorAuth(ctx context.Context, in *EnableTwoFactorAuthRequest, opts ...grpc.CallOption) (*EnableTwoFactorAuthResponse, error)
-	// Метод для проверки двухфакторной аутентификации
-	VerifyTwoFactorAuth(ctx context.Context, in *VerifyTwoFactorAuthRequest, opts ...grpc.CallOption) (*VerifyTwoFactorAuthResponse, error)
 }
 
 type authenticationServiceClient struct {
@@ -104,69 +83,6 @@ func (c *authenticationServiceClient) ResetPassword(ctx context.Context, in *Res
 	return out, nil
 }
 
-func (c *authenticationServiceClient) CreateSession(ctx context.Context, in *CreateSessionRequest, opts ...grpc.CallOption) (*CreateSessionResponse, error) {
-	out := new(CreateSessionResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_CreateSession_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) TerminateSession(ctx context.Context, in *TerminateSessionRequest, opts ...grpc.CallOption) (*TerminateSessionResponse, error) {
-	out := new(TerminateSessionResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_TerminateSession_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) CheckAuthorization(ctx context.Context, in *CheckAuthorizationRequest, opts ...grpc.CallOption) (*CheckAuthorizationResponse, error) {
-	out := new(CheckAuthorizationResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_CheckAuthorization_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) AddUserRole(ctx context.Context, in *AddUserRoleRequest, opts ...grpc.CallOption) (*AddUserRoleResponse, error) {
-	out := new(AddUserRoleResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_AddUserRole_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) RemoveUserRole(ctx context.Context, in *RemoveUserRoleRequest, opts ...grpc.CallOption) (*RemoveUserRoleResponse, error) {
-	out := new(RemoveUserRoleResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_RemoveUserRole_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) EnableTwoFactorAuth(ctx context.Context, in *EnableTwoFactorAuthRequest, opts ...grpc.CallOption) (*EnableTwoFactorAuthResponse, error) {
-	out := new(EnableTwoFactorAuthResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_EnableTwoFactorAuth_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *authenticationServiceClient) VerifyTwoFactorAuth(ctx context.Context, in *VerifyTwoFactorAuthRequest, opts ...grpc.CallOption) (*VerifyTwoFactorAuthResponse, error) {
-	out := new(VerifyTwoFactorAuthResponse)
-	err := c.cc.Invoke(ctx, AuthenticationService_VerifyTwoFactorAuth_FullMethodName, in, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // AuthenticationServiceServer is the server API for AuthenticationService service.
 // All implementations should embed UnimplementedAuthenticationServiceServer
 // for forward compatibility
@@ -179,20 +95,6 @@ type AuthenticationServiceServer interface {
 	ChangePassword(context.Context, *ChangePasswordRequest) (*ChangePasswordResponse, error)
 	// Метод для сброса пароля пользователя
 	ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error)
-	// Метод для создания сессии пользователя
-	CreateSession(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error)
-	// Метод для завершения сессии пользователя
-	TerminateSession(context.Context, *TerminateSessionRequest) (*TerminateSessionResponse, error)
-	// Метод для проверки прав доступа пользователя
-	CheckAuthorization(context.Context, *CheckAuthorizationRequest) (*CheckAuthorizationResponse, error)
-	// Метод для добавления роли пользователю
-	AddUserRole(context.Context, *AddUserRoleRequest) (*AddUserRoleResponse, error)
-	// Метод для удаления роли пользователя
-	RemoveUserRole(context.Context, *RemoveUserRoleRequest) (*RemoveUserRoleResponse, error)
-	// Метод для включения двухфакторной аутентификации
-	EnableTwoFactorAuth(context.Context, *EnableTwoFactorAuthRequest) (*EnableTwoFactorAuthResponse, error)
-	// Метод для проверки двухфакторной аутентификации
-	VerifyTwoFactorAuth(context.Context, *VerifyTwoFactorAuthRequest) (*VerifyTwoFactorAuthResponse, error)
 }
 
 // UnimplementedAuthenticationServiceServer should be embedded to have forward compatible implementations.
@@ -210,27 +112,6 @@ func (UnimplementedAuthenticationServiceServer) ChangePassword(context.Context, 
 }
 func (UnimplementedAuthenticationServiceServer) ResetPassword(context.Context, *ResetPasswordRequest) (*ResetPasswordResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ResetPassword not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) CreateSession(context.Context, *CreateSessionRequest) (*CreateSessionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CreateSession not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) TerminateSession(context.Context, *TerminateSessionRequest) (*TerminateSessionResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method TerminateSession not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) CheckAuthorization(context.Context, *CheckAuthorizationRequest) (*CheckAuthorizationResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method CheckAuthorization not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) AddUserRole(context.Context, *AddUserRoleRequest) (*AddUserRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method AddUserRole not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) RemoveUserRole(context.Context, *RemoveUserRoleRequest) (*RemoveUserRoleResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method RemoveUserRole not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) EnableTwoFactorAuth(context.Context, *EnableTwoFactorAuthRequest) (*EnableTwoFactorAuthResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method EnableTwoFactorAuth not implemented")
-}
-func (UnimplementedAuthenticationServiceServer) VerifyTwoFactorAuth(context.Context, *VerifyTwoFactorAuthRequest) (*VerifyTwoFactorAuthResponse, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method VerifyTwoFactorAuth not implemented")
 }
 
 // UnsafeAuthenticationServiceServer may be embedded to opt out of forward compatibility for this service.
@@ -316,132 +197,6 @@ func _AuthenticationService_ResetPassword_Handler(srv interface{}, ctx context.C
 	return interceptor(ctx, in, info, handler)
 }
 
-func _AuthenticationService_CreateSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CreateSessionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).CreateSession(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_CreateSession_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).CreateSession(ctx, req.(*CreateSessionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_TerminateSession_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TerminateSessionRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).TerminateSession(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_TerminateSession_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).TerminateSession(ctx, req.(*TerminateSessionRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_CheckAuthorization_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(CheckAuthorizationRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).CheckAuthorization(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_CheckAuthorization_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).CheckAuthorization(ctx, req.(*CheckAuthorizationRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_AddUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(AddUserRoleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).AddUserRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_AddUserRole_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).AddUserRole(ctx, req.(*AddUserRoleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_RemoveUserRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RemoveUserRoleRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).RemoveUserRole(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_RemoveUserRole_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).RemoveUserRole(ctx, req.(*RemoveUserRoleRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_EnableTwoFactorAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EnableTwoFactorAuthRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).EnableTwoFactorAuth(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_EnableTwoFactorAuth_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).EnableTwoFactorAuth(ctx, req.(*EnableTwoFactorAuthRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _AuthenticationService_VerifyTwoFactorAuth_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(VerifyTwoFactorAuthRequest)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(AuthenticationServiceServer).VerifyTwoFactorAuth(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: AuthenticationService_VerifyTwoFactorAuth_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(AuthenticationServiceServer).VerifyTwoFactorAuth(ctx, req.(*VerifyTwoFactorAuthRequest))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
 // AuthenticationService_ServiceDesc is the grpc.ServiceDesc for AuthenticationService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -464,34 +219,6 @@ var AuthenticationService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ResetPassword",
 			Handler:    _AuthenticationService_ResetPassword_Handler,
-		},
-		{
-			MethodName: "CreateSession",
-			Handler:    _AuthenticationService_CreateSession_Handler,
-		},
-		{
-			MethodName: "TerminateSession",
-			Handler:    _AuthenticationService_TerminateSession_Handler,
-		},
-		{
-			MethodName: "CheckAuthorization",
-			Handler:    _AuthenticationService_CheckAuthorization_Handler,
-		},
-		{
-			MethodName: "AddUserRole",
-			Handler:    _AuthenticationService_AddUserRole_Handler,
-		},
-		{
-			MethodName: "RemoveUserRole",
-			Handler:    _AuthenticationService_RemoveUserRole_Handler,
-		},
-		{
-			MethodName: "EnableTwoFactorAuth",
-			Handler:    _AuthenticationService_EnableTwoFactorAuth_Handler,
-		},
-		{
-			MethodName: "VerifyTwoFactorAuth",
-			Handler:    _AuthenticationService_VerifyTwoFactorAuth_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
