@@ -16,16 +16,18 @@ func NewRepository(db *sqlx.DB) *Repository {
 	}
 }
 
-func (r *Repository) isUserExists(username string) (bool, error) {
+func (r *Repository) isUserExistsAndEmailExist(username, email string) (bool, error) {
 	var res bool
 	err := r.db.Get(&res,
 		`
-	SELECT EXIST (SELECT 1 FROM auth.users WHERE username = $1) as usernameexist
-	`, username)
+	SELECT  EXISTS
+	    (SELECT 1 FROM auth.users WHERE username = $1 AND email = $2)
+	`, username, email,
+	)
 	if err != nil {
 		return false, err
 	}
-	return true, err
+	return res, err
 }
 
 func (r *Repository) saveUser(user entities.User) error {
@@ -34,9 +36,8 @@ func (r *Repository) saveUser(user entities.User) error {
 		INSERT INTO auth.users (username, hash_password, email, fullname)
 		VALUES($1, $2, $3, $4)
 		RETURNING user_id 
-		RETURNING user_id
 		`,
-		user.Username, 
+		user.Username,
 		user.Password,
 		user.Email,
 		user.FullName,

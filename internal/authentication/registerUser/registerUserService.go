@@ -1,8 +1,8 @@
 package registeruser
 
 import (
-	"auth/internal/entities"
 	pb "auth/internal/authentication"
+	"auth/internal/entities"
 	storages "auth/internal/storages/postgres"
 	"context"
 	"errors"
@@ -16,7 +16,7 @@ type RpcRegist struct {
 func (RpcRegist) RegisterUser(ctx context.Context, req *pb.RegisterUserRequest) (*pb.RegisterUserResponse, error) {
 	ctx.Deadline()
 	userRepository := NewRepository(storages.DB)
-	usernameExist, err := userRepository.isUserExists(req.Username)
+	usernameExist, err := userRepository.isUserExistsAndEmailExist(req.Username, req.Email)
 	if err != nil {
 		return nil, err
 	}

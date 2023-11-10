@@ -23,7 +23,7 @@ func StartGRPCServer() error {
 	authService := &GRPCServer{}
 	authentication.RegisterAuthenticationServiceServer(grpcServer, authService)
 
-	lis, err := net.Listen("tcp", ":8080")
+	lis, err := net.Listen("tcp", ":50051")
 	if err != nil {
 		return err
 	}
